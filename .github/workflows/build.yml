@@ -1,0 +1,15 @@
+name: build
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: build image
+        run: docker build -t visualisation_map .
+
+      - name: test
+        run: docker run -v $PWD/data:/data --env PYTHONUNBUFFERED=1 --env LOCATION=Norwich --env SSP=ssp5 --env YEAR=2050 --env DEPTH=40 --name visualisation_map visualisation_map
