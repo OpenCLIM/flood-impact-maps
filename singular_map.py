@@ -34,15 +34,9 @@ if len(parameter_file) == 1 :
 
     parameters = pd.read_csv(os.path.join(parameters_path + '/' + filename[-1] + '.csv'))
     location = parameters.loc[0][1]
-    ssp = str(parameters.loc[1][1])
-    year = parameters.loc[2][1]
-    depth = str(parameters.loc[5][1])
 
 if len(parameter_file) == 0 :
     location = (os.getenv('LOCATION'))
-    ssp = (os.getenv('SSP'))
-    year = (os.getenv('YEAR'))
-    depth = (os.getenv('DEPTH'))
 
 # Find the scenario datasets, and boundary
 scenarios = glob(inputs_path + "/1km_data*.csv", recursive = True)
@@ -132,10 +126,6 @@ for i in range(0,len(scenarios)):
     gdf.append(temp_gdf)
 
 
-
-
-
-
 # if there is only one scenario to view:
 if len(scenarios) == 1:
 
@@ -152,7 +142,14 @@ if len(scenarios) == 1:
 
     # Plot the clipped data, add a title and x-labels
     pcm = city_clipped.plot(column = "Total_Building_Count",ax=axarr,vmin=build_min[0],vmax=build_max[0],edgecolor = 'black',lw = 0.2)
-    pcm.set_title(location + '_' + ssp + '_' + year + '_' +depth, fontsize=12)
+
+    # Work out the scenario, year and depth of each run
+    depth_1 = results['depth'][0]
+    ssp_1 = results['scenario'][0]
+    year_1 = results['year'][0]
+    
+
+    pcm.set_title(location + '_' + ssp_1 + '_' + year_1 + '_' + depth_1, fontsize=12)
     plt.setp(pcm.get_xticklabels(), rotation=30, horizontalalignment='right')
 
     # Add a colourbar to the figure
@@ -200,12 +197,6 @@ if len(scenarios) == 2:
     sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]))
     sm._A = []
     fig.colorbar(sm, cax=cax)
-
-
-
-
-
-
 
 
 # if there are four scenarios to view
