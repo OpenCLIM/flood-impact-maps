@@ -1,0 +1,32 @@
+name: Upload to DAFNI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Upload to DAFNI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Docker Build
+        run: docker build -t visualisation_map .
+
+      - name: Compress docker image
+        run: docker save visualisation_map | gzip > visualisation_map.tar.gz
+
+      - name: Set tag as env
+        run: echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Upload to DAFNI
+        uses: dafnifacility/dafni-model-uploader@v1.9
+        with:
+          definition-path: ./model-definition.yml
+          image-path: ./visualisation_map.tar.gz
+          username: ${{ secrets.DAFNI_SERVICE_ACCOUNT_USERNAME }}
+          password: ${{ secrets.DAFNI_SERVICE_ACCOUNT_PASSWORD }}
+          version-message: ${{ env.TAG }}
+          parent-model: "3df9fc60-5b03-40e4-be99-a0710eca06a9"
