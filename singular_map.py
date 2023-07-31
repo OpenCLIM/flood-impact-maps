@@ -129,6 +129,8 @@ for i in range(0,len(scenarios)):
 # if there is only one scenario to view:
 if len(scenarios) == 1:
 
+    ##### BUILDINGS #####
+
     # Plot the boundary of the city
     fig,axarr = plt.subplots(figsize = (16,8))
     pcm = boundary1.boundary.plot(edgecolor = 'black', lw = 0.5, ax=axarr)
@@ -148,8 +150,7 @@ if len(scenarios) == 1:
     ssp_1 = results['scenario'][0]
     year_1 = results['year'][0]
     
-
-    pcm.set_title(location + '_' + ssp_1 + '_' + year_1 + '_' + depth_1, fontsize=12)
+    pcm.set_title(location + '_' + ssp_1 + '_' + year_1 + '_' + depth_1 + '_BUILDINGS', fontsize=12)
     plt.setp(pcm.get_xticklabels(), rotation=30, horizontalalignment='right')
 
     # Add a colourbar to the figure
@@ -158,8 +159,6 @@ if len(scenarios) == 1:
     sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]))
     sm._A = []
     fig.colorbar(sm, cax=cax)
-
-
 
 
 # if there are two scenarios to view
@@ -188,7 +187,7 @@ if len(scenarios) == 2:
         ssp_1 = results['scenario'][i]
         year_1 = results['year'][i]
 
-        axarr[i].set_title(location + '_'+ ssp_1 + '_'+ year_1 + '_' + depth_1, fontsize=12)
+        axarr[i].set_title(location + '_'+ ssp_1 + '_'+ year_1 + '_' + depth_1 + '_BUILDINGS', fontsize=12)
         plt.setp(axarr[i].get_xticklabels(), rotation=30, horizontalalignment='right')
 
     # Add a colourbar to the figure
@@ -228,7 +227,7 @@ if len(scenarios) == 4:
             ssp_1 = results['scenario'][m]
             year_1 = results['year'][m]
 
-            axarr[i,j].set_title(location + '_'+ ssp_1 + '_'+ year_1 + '_' + depth_1, fontsize=12)
+            axarr[i,j].set_title(location + '_'+ ssp_1 + '_'+ year_1 + '_' + depth_1 + '_BUILDINGS', fontsize=12)
             #plt.setp(axarr[i].get_xticklabels(), rotation=30, horizontalalignment='right')
             m=m+1
 
@@ -241,3 +240,118 @@ if len(scenarios) == 4:
 
 # Save the figure to the output path
 plt.savefig(os.path.join(outputs_path, location +'_Buildings.png'), bbox_inches='tight' ,dpi=600)
+
+
+# if there is only one scenario to view:
+if len(scenarios) == 1:
+
+    ##### DAMAGES #####
+
+    # Plot the boundary of the city
+    fig,axarr = plt.subplots(figsize = (16,8))
+    pcm1 = boundary1.boundary.plot(edgecolor = 'black', lw = 0.5, ax=axarr)
+    
+    # Read in the data from the gdf database ready to clip to the boundary
+    gdf_clip = gdf[0]
+    gdf_clip.crs = boundary1.crs
+
+    # Clip the output data to the boundary
+    city_clipped = gpd.clip(gdf_clip,boundary1)
+
+    # Plot the clipped data, add a title and x-labels
+    pcm1 = city_clipped.plot(column = "Damage",ax=axarr,vmin=damages_min[0],vmax=damages_max[0],edgecolor = 'black',lw = 0.2)
+
+    # Work out the scenario, year and depth of each run
+    depth_1 = results['depth'][0]
+    ssp_1 = results['scenario'][0]
+    year_1 = results['year'][0]
+    
+    pcm1.set_title(location + '_' + ssp_1 + '_' + year_1 + '_' + depth_1 + '_DAMAGES', fontsize=12)
+    plt.setp(pcm.get_xticklabels(), rotation=30, horizontalalignment='right')
+
+    # Add a colourbar to the figure
+    fig = pcm1.get_figure()
+    cax = fig.add_axes([0.8, 0.1, 0.03, 0.8])
+    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=damages_min[0],vmax=damages_max[0]))
+    sm._A = []
+    fig.colorbar(sm, cax=cax)
+
+
+# if there are two scenarios to view
+if len(scenarios) == 2:
+    # Create a subplot
+    fig,axarr = plt.subplots(1,2,figsize = (16,8),sharex = True, sharey = True)
+
+    # Plot the boundary of the city for both subplots
+    for i in range(0,2):
+        if len(boundary_path) != 0:
+            pcm = boundary1.boundary.plot(edgecolor = 'black', lw = 0.5,ax=axarr[i])
+    
+    for i in range(0,len(scenarios)):
+        # Read in the data from the gdf database ready to clip to the boundary
+        gdf_clip = gdf[i]
+        gdf_clip.crs = boundary1.crs
+
+        # Clip the output data to the boundary
+        city_clipped = gpd.clip(gdf_clip,boundary1)
+
+        # Plot the clipped data, add a title and x-labels
+        pcm = city_clipped.plot(column = "Damage",ax=axarr[i],vmin=damages_min[0],vmax=damages_max[0],edgecolor = 'black',lw = 0.2)
+
+        # Work out the scenario, year and depth of each run
+        depth_1 = results['depth'][i]
+        ssp_1 = results['scenario'][i]
+        year_1 = results['year'][i]
+
+        axarr[i].set_title(location + '_'+ ssp_1 + '_'+ year_1 + '_' + depth_1 + '_DAMAGES', fontsize=12)
+        plt.setp(axarr[i].get_xticklabels(), rotation=30, horizontalalignment='right')
+
+    # Add a colourbar to the figure
+    fig = pcm.get_figure()
+    cax = fig.add_axes([0.95, 0.1, 0.03, 0.8])
+    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=damages_min[0],vmax=damages_max[0]))
+    sm._A = []
+    fig.colorbar(sm, cax=cax)
+
+# if there are four scenarios to view
+if len(scenarios) == 4:
+    # Create a subplot
+    fig,axarr = plt.subplots(2,2,figsize = (16,16),sharex = True, sharey = True)
+    m=0
+
+    # Plot the boundary of the city for both subplots
+    for i in range(0,2):
+        for j in range(0,2):
+            if len(boundary_path) != 0:
+                pcm = boundary1.boundary.plot(edgecolor = 'black', lw = 0.5,ax=axarr[i,j],vmin=damages_min[0],vmax=damages_max[0])
+
+    for i in range(0,2):
+        for j in range(0,2):
+            # Read in the data from the gdf database ready to clip to the boundary
+            gdf_clip = gdf[m]
+            gdf_clip.crs = boundary1.crs
+
+            # Clip the output data to the boundary
+            city_clipped = gpd.clip(gdf_clip,boundary1)
+
+            # Plot the clipped data, add a title and x-labels
+            pcm = city_clipped.plot(column = "Damage",ax=axarr[i,j],vmin=damages_min[0],vmax=damages_max[0],edgecolor = 'black',lw = 0.2)
+
+                # Work out the scenario, year and depth of each run
+            depth_1 = results['depth'][m]
+            ssp_1 = results['scenario'][m]
+            year_1 = results['year'][m]
+
+            axarr[i,j].set_title(location + '_'+ ssp_1 + '_'+ year_1 + '_' + depth_1 + '_DAMAGES', fontsize=12)
+            #plt.setp(axarr[i].get_xticklabels(), rotation=30, horizontalalignment='right')
+            m=m+1
+
+    # Add a colourbar to the figure
+    fig = pcm.get_figure()
+    cax = fig.add_axes([0.95, 0.1, 0.03, 0.8])
+    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]))
+    sm._A = []
+    fig.colorbar(sm, cax=cax)
+
+# Save the figure to the output path
+plt.savefig(os.path.join(outputs_path, location +'_Damages.png'), bbox_inches='tight' ,dpi=600)
