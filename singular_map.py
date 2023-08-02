@@ -143,7 +143,7 @@ if len(scenarios) == 1:
     city_clipped = gpd.clip(gdf_clip,boundary1)
 
     # Plot the clipped data, add a title and x-labels
-    pcm = city_clipped.plot(column = "Total_Building_Count",ax=axarr,vmin=build_min[0],vmax=build_max[0],edgecolor = 'black',lw = 0.2)
+    pcm = city_clipped.plot(column = "Total_Building_Count",ax=axarr,vmin=build_min[0],vmax=build_max[0],edgecolor = 'black',lw = 0.2,cmap='Greys')
 
     # Work out the scenario, year and depth of each run
     depth_1 = results['depth'][0]
@@ -155,8 +155,8 @@ if len(scenarios) == 1:
 
     # Add a colourbar to the figure
     fig = pcm.get_figure()
-    cax = fig.add_axes([0.8, 0.1, 0.03, 0.8])
-    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]))
+    cax = fig.add_axes([0.95, 0.15, 0.03, 0.7])
+    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]),cmap='Greys')
     sm._A = []
     fig.colorbar(sm, cax=cax)
 
@@ -180,7 +180,7 @@ if len(scenarios) == 2:
         city_clipped = gpd.clip(gdf_clip,boundary1)
 
         # Plot the clipped data, add a title and x-labels
-        pcm = city_clipped.plot(column = "Total_Building_Count",ax=axarr[i],vmin=build_min[0],vmax=build_max[0],edgecolor = 'black',lw = 0.2)
+        pcm = city_clipped.plot(column = "Total_Building_Count",ax=axarr[i],vmin=build_min[0],vmax=build_max[0],edgecolor = 'black',lw = 0.2,cmap='Greys')
 
         # Work out the scenario, year and depth of each run
         depth_1 = results['depth'][i]
@@ -192,8 +192,8 @@ if len(scenarios) == 2:
 
     # Add a colourbar to the figure
     fig = pcm.get_figure()
-    cax = fig.add_axes([0.95, 0.1, 0.03, 0.8])
-    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]))
+    cax = fig.add_axes([0.95, 0.15, 0.03, 0.7])
+    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]),cmap='Greys')
     sm._A = []
     fig.colorbar(sm, cax=cax)
 
@@ -220,7 +220,7 @@ if len(scenarios) == 4:
             city_clipped = gpd.clip(gdf_clip,boundary1)
 
             # Plot the clipped data, add a title and x-labels
-            pcm = city_clipped.plot(column = "Total_Building_Count",ax=axarr[i,j],vmin=build_min[0],vmax=build_max[0],edgecolor = 'black',lw = 0.2)
+            pcm = city_clipped.plot(column = "Total_Building_Count",ax=axarr[i,j],vmin=build_min[0],vmax=build_max[0],edgecolor = 'black',lw = 0.2,cmap='Greys')
 
                 # Work out the scenario, year and depth of each run
             depth_1 = results['depth'][m]
@@ -233,8 +233,8 @@ if len(scenarios) == 4:
 
     # Add a colourbar to the figure
     fig = pcm.get_figure()
-    cax = fig.add_axes([0.95, 0.1, 0.03, 0.8])
-    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]))
+    cax = fig.add_axes([0.95, 0.15, 0.03, 0.7])
+    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]),cmap='Greys')
     sm._A = []
     fig.colorbar(sm, cax=cax)
 
@@ -259,7 +259,7 @@ if len(scenarios) == 1:
     city_clipped = gpd.clip(gdf_clip,boundary1)
 
     # Plot the clipped data, add a title and x-labels
-    pcm1 = city_clipped.plot(column = "Damage",ax=axarr,vmin=damages_min[0],vmax=damages_max[0],edgecolor = 'black',lw = 0.2)
+    pcm1 = city_clipped.plot(column = "Damage",ax=axarr,vmin=damages_min[0],vmax=damages_max[0],edgecolor = 'black',lw = 0.2,cmap='GnBu')
 
     # Work out the scenario, year and depth of each run
     depth_1 = results['depth'][0]
@@ -271,8 +271,8 @@ if len(scenarios) == 1:
 
     # Add a colourbar to the figure
     fig = pcm1.get_figure()
-    cax = fig.add_axes([0.8, 0.1, 0.03, 0.8])
-    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=damages_min[0],vmax=damages_max[0]))
+    cax = fig.add_axes([0.95, 0.15, 0.03, 0.7])
+    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=damages_min[0],vmax=damages_max[0]),cmap='GnBu')
     sm._A = []
     fig.colorbar(sm, cax=cax)
 
@@ -296,7 +296,7 @@ if len(scenarios) == 2:
         city_clipped = gpd.clip(gdf_clip,boundary1)
 
         # Plot the clipped data, add a title and x-labels
-        pcm = city_clipped.plot(column = "Damage",ax=axarr[i],vmin=damages_min[0],vmax=damages_max[0],edgecolor = 'black',lw = 0.2)
+        pcm = city_clipped.plot(column = "Damage",ax=axarr[i],vmin=damages_min[0],vmax=damages_max[0],edgecolor = 'black',lw = 0.2,cmap='GnBu')
 
         # Work out the scenario, year and depth of each run
         depth_1 = results['depth'][i]
@@ -308,8 +308,8 @@ if len(scenarios) == 2:
 
     # Add a colourbar to the figure
     fig = pcm.get_figure()
-    cax = fig.add_axes([0.95, 0.1, 0.03, 0.8])
-    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=damages_min[0],vmax=damages_max[0]))
+    cax = fig.add_axes([0.95, 0.15, 0.03, 0.7])
+    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=damages_min[0],vmax=damages_max[0]),cmap='GnBu')
     sm._A = []
     fig.colorbar(sm, cax=cax)
 
@@ -335,7 +335,7 @@ if len(scenarios) == 4:
             city_clipped = gpd.clip(gdf_clip,boundary1)
 
             # Plot the clipped data, add a title and x-labels
-            pcm = city_clipped.plot(column = "Damage",ax=axarr[i,j],vmin=damages_min[0],vmax=damages_max[0],edgecolor = 'black',lw = 0.2)
+            pcm = city_clipped.plot(column = "Damage",ax=axarr[i,j],vmin=damages_min[0],vmax=damages_max[0],edgecolor = 'black',lw = 0.2,cmap='GnBu')
 
                 # Work out the scenario, year and depth of each run
             depth_1 = results['depth'][m]
@@ -348,8 +348,8 @@ if len(scenarios) == 4:
 
     # Add a colourbar to the figure
     fig = pcm.get_figure()
-    cax = fig.add_axes([0.95, 0.1, 0.03, 0.8])
-    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]))
+    cax = fig.add_axes([0.95, 0.15, 0.03, 0.7])
+    sm = plt.cm.ScalarMappable(norm=plt.Normalize(vmin=build_min[0],vmax=build_max[0]),cmap='GnBu')
     sm._A = []
     fig.colorbar(sm, cax=cax)
 
