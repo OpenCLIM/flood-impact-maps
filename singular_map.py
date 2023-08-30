@@ -24,6 +24,7 @@ if not os.path.exists(outputs_path):
 grid_path = os.path.join(inputs_path,'grid')
 boundary_path = os.path.join(inputs_path,'boundary')
 parameters_path = os.path.join(inputs_path,'parameters')
+udm_para_in_path = os.path.join(inputs_path, 'udm_parameters')
 
 # Find the parameter file
 parameter_file = glob(parameters_path + "/*.csv", recursive = True)
@@ -401,3 +402,35 @@ if len(scenarios) == 1:
 
 # Save the figure to the output path
 plt.savefig(os.path.join(outputs_path, location +'_Damages.png'), bbox_inches='tight' ,dpi=600)
+
+
+# If linked to UDM results, pass the udm details through to the outputs
+udm_para_out_path = os.path.join(outputs_path, 'udm_parameters')
+if not os.path.exists(udm_para_out_path):
+    os.mkdir(udm_para_out_path)
+
+meta_data_txt = glob(udm_para_in_path + "/**/metadata.txt", recursive = True)
+meta_data_csv = glob(udm_para_in_path + "/**/metadata.csv", recursive = True)
+attractors = glob(udm_para_in_path + "/**/attractors.csv", recursive = True)
+constraints = glob(udm_para_in_path + "/**/constraints.csv", recursive = True)
+
+if len(meta_data_txt)==1:
+    src = meta_data_txt[0]
+    dst = os.path.join(udm_para_out_path,'metadata.txt')
+    shutil.copy(src,dst)
+
+if len(meta_data_csv)==1:
+    src = meta_data_csv[0]
+    dst = os.path.join(udm_para_out_path,'metadata.csv')
+    shutil.copy(src,dst)
+
+if len(attractors)==1:
+    src = attractors[0]
+    dst = os.path.join(udm_para_out_path,'attractors.csv')
+    shutil.copy(src,dst)
+
+if len(constraints)==1:
+    src = constraints[0]
+    dst = os.path.join(udm_para_out_path,'constraints.csv')
+    shutil.copy(src,dst)
+
