@@ -86,7 +86,7 @@ for i in range(0,len(scenarios)):
 
     # Move to outputs
     src =scenarios[i]
-    dst = os.path.join(outputs_path,filename[-1] + '.csv')
+    dst = os.path.join(outputs_path,unit_name + '.csv')
     shutil.copy(src,dst)
     
     tot_count[unit_name] = parameters_1['Total_Building_Count']
