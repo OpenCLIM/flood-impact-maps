@@ -27,6 +27,11 @@ boundary_path = os.path.join(inputs_path,'boundary')
 parameters_path = os.path.join(inputs_path,'parameters')
 udm_para_in_path = os.path.join(inputs_path, 'udm_parameters')
 
+# Define output path for parameters
+parameters_out_path=os.path.join(outputs_path,'parameters')
+if not os.path.exists(parameters_out_path):
+    os.mkdir(parameters_out_path)
+
 # Find the parameter file
 parameter_file = glob(parameters_path + "/*.csv", recursive = True)
 print('parameter_file:', parameter_file)
@@ -36,6 +41,10 @@ if len(parameter_file) == 1 :
     print('Filepath:',file_path)
     filename=file_path[0].split("/")
     print('Filename:',filename[-1])
+
+    src = parameter_file[0]
+    dst = os.path.join(outputs_parameters_data,filename[-1] + '.csv')
+    shutil.copy(src,dst)
 
     parameters = pd.read_csv(os.path.join(parameters_path + '/' + filename[-1] + '.csv'))
     location = parameters.loc[0][1]
