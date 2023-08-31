@@ -83,6 +83,12 @@ for i in range(0,len(scenarios)):
     filename[i]=file_path[0].split("/")
     unit_name = filename[i][-1]
     parameters_1 = pd.read_csv(os.path.join(inputs_path, unit_name + '.csv'))
+
+    # Move to outputs
+    src =scenarios[i]
+    dst = os.path.join(outputs_path,filename[-1] + '.csv')
+    shutil.copy(src,dst)
+    
     tot_count[unit_name] = parameters_1['Total_Building_Count']
     damages[unit_name] = parameters_1['Damage']
 
