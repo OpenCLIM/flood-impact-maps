@@ -128,22 +128,26 @@ print('x:',buildings_quartiles)
 tot_count.replace(0, np.nan, inplace = True)
 damages.replace(0, np.nan, inplace = True)
 
-# Create a column showing the depth of the event
-results['depth']=['xxxx' for n in range(0,len(results))]
-for i in range(0,len(results)):
-    results['depth'][i]=results.index[i][-4:]
+results.index.names=['Scenario']
+results = results.reset_index()
 
-# Create a column showing the year of the event
-results['year']=['xxxx' for n in range(0,len(results))]
-for i in range(0,len(results)):
-    results['year'][i]=results.index[i][-9:-5]
+for i in range (0,len(results)):
+    results.Scenario[i]=results.Scenario[i].split(location + '_')[-1]
 
-# Create a column showing the scenario of the event
-results['scenario']=['xxxx' for n in range(0,len(results))]
-for i in range(0,len(results)):
-    results['scenario'][i]=results.index[i][-14:-10]
-    # if results['scenario'][i] == 'line':
-    #     results['scenario'][i] = 'baseline'
+## WORK OUT THE YEAR ##
+results['year'] = 1
+for i in range (0,len(results)):
+    results.year[i] = results.Scenario[i].split('_')[1] 
+
+## WORK OUT THE SSP ##
+results['ssp'] = 1
+for i in range (0,len(results)):
+    results.ssp[i] = results.Scenario[i].split('_')[0] 
+
+## WORK OUT THE DEPTH ##
+results['depth'] = 1
+for i in range (0,len(results)):
+    results.depth[i] = results.Scenario[i].split('_')[2]
 
 damages_min = results.agg({'Total_Damages_min':['min']}).unstack()
 damages_max = results.agg({'Total_Damages_max':['max']}).unstack()
