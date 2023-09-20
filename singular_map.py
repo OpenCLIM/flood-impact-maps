@@ -192,9 +192,9 @@ if len(scenarios) == 1:
     pcm = city_clipped.plot(column = "Total_Building_Count",ax=axarr,scheme = 'quantiles', k=20, edgecolor = 'black',lw = 0.2,cmap='Greys')#vmin=build_min[0],vmax=build_max[0],
 
     # Work out the scenario, year and depth of each run
-    depth_1 = results['depth'][0]
-    ssp_1 = results['ssp'][0]
-    year_1 = results['year'][0]
+    depth_1 = str(results['depth'][0])
+    ssp_1 = str(results['ssp'][0])
+    year_1 = str(results['year'][0])
 
     
     
@@ -321,9 +321,9 @@ if len(scenarios) == 1:
     pcm1 = city_clipped.plot(column = "Damage",ax=axarr,scheme = 'quantiles', k=20,edgecolor = 'black',lw = 0.2,cmap='GnBu') #vmin=damages_min[0],vmax=damages_max[0]
 
     # Work out the scenario, year and depth of each run
-    depth_1 = results['depth'][0]
-    ssp_1 = results['ssp'][0]
-    year_1 = results['year'][0]
+    depth_1 = str(results['depth'][0])
+    ssp_1 = str(results['ssp'][0])
+    year_1 = str(results['year'][0])
     
     pcm1.set_title(location + '_' + ssp_1 + '_' + year_1 + '_' + depth_1 + '_DAMAGES', fontsize=12)
     plt.setp(pcm.get_xticklabels(), rotation=30, horizontalalignment='right')
