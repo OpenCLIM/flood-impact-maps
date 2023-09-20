@@ -193,7 +193,7 @@ if len(scenarios) == 1:
 
     # Work out the scenario, year and depth of each run
     depth_1 = results['depth'][0]
-    ssp_1 = results['scenario'][0]
+    ssp_1 = results['ssp'][0]
     year_1 = results['year'][0]
 
     
@@ -322,7 +322,7 @@ if len(scenarios) == 1:
 
     # Work out the scenario, year and depth of each run
     depth_1 = results['depth'][0]
-    ssp_1 = results['scenario'][0]
+    ssp_1 = results['ssp'][0]
     year_1 = results['year'][0]
     
     pcm1.set_title(location + '_' + ssp_1 + '_' + year_1 + '_' + depth_1 + '_DAMAGES', fontsize=12)
