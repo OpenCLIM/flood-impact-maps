@@ -1,8 +1,10 @@
 kind: M
-api_version: v1beta2
+api_version: v1beta3
 metadata:
   display_name: Urban_Flooding:Flood Impact Maps
   name: flood-impact-maps
+  contact_point_name: Olivia Butters
+  contact_point_email: olivia.butters@newcastle.ac.uk
   publisher: Newcastle University
   summary: >
     Visualisation of flood impacts for different scenarios
