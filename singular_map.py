@@ -167,7 +167,7 @@ for i in range(0,len(scenarios)):
     temp_df = dataframes_list[i]
     #temp_df['geometry'] = temp_df['geometry'].apply(wkt.loads)
     temp_gdf = gpd.GeoDataFrame(temp_df)
-    temp_gdf['geometry'] = temp_gdf['geometry'].apply(wkt.loads)
+    temp_gdf['geometry_x'] = temp_gdf['geometry_x'].apply(wkt.loads)
     temp_gdf.set_geometry('geometry',crs='epsg:27700')
     gdf.append(temp_gdf)
 
