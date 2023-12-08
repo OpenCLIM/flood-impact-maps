@@ -1,4 +1,4 @@
-,tile_name,id,geometry,Total_Building_Count,Residential_Count,Non_Residential_Count,Mixed_Count,Unclassified_Count,Unknown_Count,Damage,Depth
+,tile_name,id,geometry_x,Total_Building_Count,Residential_Count,Non_Residential_Count,Mixed_Count,Unclassified_Count,Unknown_Count,Damage,Depth
 0,TG1507,841508,"POLYGON ((615000 307000, 616000 307000, 616000 308000, 615000 308000, 615000 307000))",2,0,0,0,0,2,325,0.055
 1,TG1508,841509,"POLYGON ((615000 308000, 616000 308000, 616000 309000, 615000 309000, 615000 308000))",32,25,1,0,0,6,60066,0.0900313
 2,TG1509,841510,"POLYGON ((615000 309000, 616000 309000, 616000 310000, 615000 310000, 615000 309000))",11,2,0,0,0,9,58441,0.114909
