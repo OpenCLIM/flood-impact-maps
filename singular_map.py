@@ -106,6 +106,9 @@ results['Total_Damages_min'] = damages.min()
 damages= damages.dropna()
 tot_count = tot_count.dropna()
 
+damages = damages.loc[(damages!=0).any(axis=1)]
+tot_count = tot_count.loc[(tot_count!=0).any(axis=1)]
+
 # Calculate the 10 quartiles for the list of damages
 damage_quartiles=[]
 damage_quartiles=[0 for n in range(10)]
